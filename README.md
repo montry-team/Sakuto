@@ -1,5 +1,4 @@
-Sakuto
-Sakuto — Fun. Social. Lifestyle.
+# Sakuto — Fun. Social. Lifestyle.
 Your all-in-one app for videos, scrolls, posts, games, and more.
 
 🎬 Watch & share videos
