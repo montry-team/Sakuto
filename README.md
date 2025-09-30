@@ -1,4 +1,4 @@
-# Sakuto
+Sakuto
 Sakuto — Fun. Social. Lifestyle.
 Your all-in-one app for videos, scrolls, posts, games, and more.
 
@@ -7,7 +7,6 @@ Your all-in-one app for videos, scrolls, posts, games, and more.
 📸 Post photos & threads
 🎮 Play games & challenges
 💬 Connect & chat with people
-🌟 Extras: QR tools, memes, news & more
 
 🚫 No ads.
 🛡️ Privacy first.
