@@ -30,13 +30,21 @@ header{
   overflow:hidden;
   padding:0 1rem;
 }
-header h1{
-  font-size:3rem;
-  font-weight:800;
-  margin-bottom:1rem;
+header h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
   background: linear-gradient(90deg, #FFFFFF, #EFB4B4, #FFFFFF);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes gradientShift {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
 }
 header p{
   font-size:1.25rem;
@@ -58,10 +66,40 @@ header p{
 
 /* Buttons */
 .btn{
-  display:inline-flex;align-items:center;gap:0.5rem;margin:0.5rem;padding:1rem 2rem;
-  background:white;color:#EF5350;font-weight:600;border-radius:8px;transition:transform 0.3s,box-shadow 0.3s;
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
+  margin:0.5rem;
+  padding:1rem 2.5rem;
+  background:white;
+  color:#EF5350;
+  font-weight:700;
+  border-radius:999px; /* pill */
+  transition:transform 0.2s ease, box-shadow 0.3s ease;
+  position:relative;
+  overflow:hidden;
 }
-.btn:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.15);}
+.btn:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 8px 20px rgba(0,0,0,0.15);}
+.btn:active{transform:scale(0.95);}
+
+/* Ripple animation on click */
+.btn::after{
+  content:"";
+  position:absolute;
+  top:50%; left:50%;
+  width:0; height:0;
+  background:rgba(239,83,80,0.2);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  opacity:0;
+  transition:width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
+}
+.btn:active::after{
+  width:200px;
+  height:200px;
+  opacity:1;
+  transition:0s;
+}
 
 /* Features */
 .features{
@@ -96,7 +134,10 @@ header p{
 footer{text-align:center;padding:2rem 1rem;color:#555;}
 
 /* Responsive */
-@media(max-width:600px){header h1{font-size:2.2rem;}.feature-icon{font-size:2.5rem;}}
+@media(max-width:600px){
+  header h1{font-size:2.2rem;}
+  .feature-icon{font-size:2.5rem;}
+}
 </style>
 </head>
 <body>
@@ -150,7 +191,6 @@ const scrollHandler = () => {
     else card.classList.remove('show');
   });
 
-  // Scroll-driven parallax shapes
   floatingShapes.forEach((shape,i)=>{
     const speed = (i+1)*0.2;
     shape.style.transform = `translateY(${window.scrollY*speed}px) rotate(${window.scrollY*0.05*i}deg)`;
@@ -159,17 +199,14 @@ const scrollHandler = () => {
 window.addEventListener('scroll', scrollHandler);
 window.addEventListener('load', scrollHandler);
 
-// Continuous floating animation
+// Floating animation loop
 const floats=document.querySelectorAll('.floating');
-let lastTime=0;
 function animate(time){
-  const dt=time-lastTime;
   floats.forEach((f,i)=>{
     const y=Math.sin(time*0.001*(i+1))*20;
     const x=Math.cos(time*0.001*(i+1))*20;
     f.style.transform=`translate(${x}px,${y}px)`;
   });
-  lastTime=time;
   requestAnimationFrame(animate);
 }
 requestAnimationFrame(animate);
